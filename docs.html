@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Savannai — Documentation</title>
+    <link rel="icon" href="favicon.png" type="image/png" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        background: #1a1400;
+        color: #f5e6a3;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        line-height: 1.7;
+        padding: 0;
+      }
+
+      .doc-header {
+        background: #f5e6a3;
+        border-bottom: 3px solid #c9a227;
+        padding: 20px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .doc-header h1 {
+        font-family: 'Press Start 2P', monospace;
+        font-size: 14px;
+        color: #5c4a00;
+      }
+
+      .doc-header a {
+        font-family: 'Press Start 2P', monospace;
+        font-size: 9px;
+        color: #5c4a00;
+        text-decoration: none;
+        background: #e6c84a;
+        border: 2px solid #c9a227;
+        border-radius: 4px;
+        padding: 8px 16px;
+        transition: background 0.15s;
+      }
+
+      .doc-header a:hover { background: #d4b84a; }
+
+      .doc-body {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 40px 30px 80px;
+      }
+
+      .doc-nav {
+        background: #2a2000;
+        border: 2px solid #c9a227;
+        border-radius: 6px;
+        padding: 20px 24px;
+        margin-bottom: 40px;
+      }
+
+      .doc-nav h2 {
+        font-family: 'Press Start 2P', monospace;
+        font-size: 10px;
+        color: #e6c84a;
+        margin-bottom: 12px;
+      }
+
+      .doc-nav ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .doc-nav a {
+        color: #f5e6a3;
+        text-decoration: none;
+        font-size: 13px;
+        padding: 4px 0;
+        display: block;
+        border-bottom: 1px solid #3a2e00;
+        transition: color 0.15s;
+      }
+
+      .doc-nav a:hover { color: #e6c84a; }
+      .doc-nav a::before { content: '> '; color: #c9a227; }
+
+      h2 {
+        font-family: 'Press Start 2P', monospace;
+        font-size: 12px;
+        color: #e6c84a;
+        margin: 40px 0 16px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #3a2e00;
+      }
+
+      h3 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #f5e6a3;
+        margin: 24px 0 10px;
+      }
+
+      p { margin: 0 0 14px; font-size: 14px; color: #d4c88a; }
+
+      ul, ol {
+        margin: 0 0 14px 20px;
+        font-size: 14px;
+        color: #d4c88a;
+      }
+
+      li { margin-bottom: 6px; }
+
+      code {
+        background: #2a2000;
+        border: 1px solid #5c4a00;
+        border-radius: 3px;
+        padding: 2px 6px;
+        font-family: 'Press Start 2P', monospace;
+        font-size: 10px;
+        color: #e6c84a;
+      }
+
+      pre {
+        background: #2a2000;
+        border: 2px solid #5c4a00;
+        border-radius: 6px;
+        padding: 16px 20px;
+        overflow-x: auto;
+        margin: 0 0 14px;
+        font-family: 'Press Start 2P', monospace;
+        font-size: 9px;
+        line-height: 2;
+        color: #e6c84a;
+      }
+
+      .tag {
+        display: inline-block;
+        background: #e6c84a;
+        color: #5c4a00;
+        font-size: 10px;
+        font-family: 'Press Start 2P', monospace;
+        padding: 3px 10px;
+        border-radius: 3px;
+        margin: 2px 4px 2px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="doc-header">
+      <h1>Savannai Docs</h1>
+      <a href="index.html">Back to Game</a>
+    </div>
+
+    <div class="doc-body">
+
+      <div class="doc-nav">
+        <h2>Table of Contents</h2>
+        <ul>
+          <li><a href="#overview">Project Overview</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#3d-engine">3D Engine &amp; World</a></li>
+          <li><a href="#ai-system">AI Animal System</a></li>
+          <li><a href="#multiplayer">Multiplayer &amp; Networking</a></li>
+          <li><a href="#web3">Web3 Integration</a></li>
+          <li><a href="#ui-layer">UI Overlay Layer</a></li>
+          <li><a href="#responsive">Responsive Design</a></li>
+          <li><a href="#deployment">Deployment &amp; Infrastructure</a></li>
+          <li><a href="#stack">Tech Stack</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+
+      <h2 id="overview">Project Overview</h2>
+      <p>Savannai is a fully custom-built Web3 3D multiplayer experience set in a virtual African savanna. We designed and developed this project from the ground up — every element of the environment, from terrain generation to animal behavior, was crafted by our team.</p>
+      <p>The goal: create a shared online space where players can explore, socialize, and observe AI-driven wildlife in real time, all running inside a web browser with zero installs required.</p>
+
+      <h2 id="architecture">Architecture</h2>
+      <p>The system consists of several interconnected layers:</p>
+      <ul>
+        <li><strong>3D Rendering Layer</strong> — real-time 3D scene powered by WebGL, handling terrain, lighting, skybox, and all visual elements</li>
+        <li><strong>AI Behavior Layer</strong> — autonomous animal agents with state machines governing movement, feeding, resting, and social interactions</li>
+        <li><strong>Multiplayer Layer</strong> — real-time player synchronization allowing multiple users to coexist in the same world simultaneously</li>
+        <li><strong>UI Overlay Layer</strong> — custom HTML/CSS interface overlaid on the 3D viewport, providing controls, stats, chat, and navigation</li>
+        <li><strong>Web3 Layer</strong> — blockchain integration for token mechanics and decentralized ownership</li>
+      </ul>
+
+      <h2 id="3d-engine">3D Engine &amp; World</h2>
+      <h3>Terrain</h3>
+      <p>The savanna terrain was modeled with realistic elevation data — rolling hills, flat grasslands, and a river valley. Textures were hand-selected and blended to simulate dry season African landscapes with procedural grass placement.</p>
+
+      <h3>Environment</h3>
+      <ul>
+        <li><strong>Dynamic skybox</strong> with time-of-day color shifts</li>
+        <li><strong>Volumetric lighting</strong> simulating sun position and atmospheric scattering</li>
+        <li><strong>Interactive objects</strong> — vehicles, structures, watering holes that respond to player proximity</li>
+        <li><strong>LOD system</strong> (Level of Detail) ensuring smooth performance across devices</li>
+      </ul>
+
+      <h3>Asset Pipeline</h3>
+      <p>3D animal models were generated using <span class="tag">Meshy AI</span> and refined manually. Environmental assets from curated packs (<span class="tag">Animal Pack Deluxe v2</span>) were integrated and optimized for web delivery.</p>
+
+      <h2 id="ai-system">AI Animal System</h2>
+      <p>Each animal species runs an independent AI agent with the following behavior model:</p>
+
+      <h3>State Machine</h3>
+      <pre>IDLE → WANDER → GRAZE → DRINK → REST → SOCIALIZE
+  ↓         ↓        ↓       ↓       ↓
+FLEE (on threat detection)</pre>
+
+      <h3>Behavior Parameters</h3>
+      <ul>
+        <li><strong>Giraffes</strong> — long wander radius, frequent grazing, slow movement, high awareness</li>
+        <li><strong>Elephants</strong> — herd behavior, paths to water sources, territorial presence</li>
+        <li><strong>Rhinos</strong> — solitary, short temper radius, charge behavior on close approach</li>
+        <li><strong>Ostriches</strong> — high speed, erratic movement patterns, flock tendency</li>
+        <li><strong>Tortoises</strong> — minimal movement, long rest cycles, predictable paths</li>
+      </ul>
+
+      <h3>Perception System</h3>
+      <p>Animals have a configurable perception radius. When players enter this radius, animals react — some flee, some approach, some ignore. This creates emergent, unscripted encounters that feel organic.</p>
+
+      <h2 id="multiplayer">Multiplayer &amp; Networking</h2>
+      <p>The world supports real-time multiplayer with the following features:</p>
+      <ul>
+        <li><strong>Player presence</strong> — see other players' avatars moving in real time</li>
+        <li><strong>Live chat</strong> — in-world text communication</li>
+        <li><strong>Shared state</strong> — all players see the same animals in the same positions</li>
+        <li><strong>Scalable rooms</strong> — automatic load balancing across server instances</li>
+      </ul>
+      <p>Network synchronization uses WebSocket connections with delta compression to minimize bandwidth while maintaining responsive 30+ FPS visual updates.</p>
+
+      <h2 id="web3">Web3 Integration</h2>
+      <p>Savannai is built with Web3 principles at its core:</p>
+      <ul>
+        <li><strong>Token ($SAVANNAI)</strong> — native token powering the ecosystem, launched on Solana via pump.fun</li>
+        <li><strong>On-chain activity</strong> — key game events are logged to the blockchain for transparency</li>
+        <li><strong>Community governance</strong> — token holders participate in decisions about world updates, new species, and features</li>
+        <li><strong>Decentralized identity</strong> — wallet-based authentication, no email/password required</li>
+      </ul>
+
+      <h2 id="ui-layer">UI Overlay Layer</h2>
+      <p>The entire user interface is a custom-built overlay rendered on top of the 3D viewport:</p>
+      <ul>
+        <li><strong>Right panel</strong> — project info, controls reference, documentation links, real-time animal activity log</li>
+        <li><strong>Bottom bar</strong> — live animal population counters with animated numbers, player count, chat toggle</li>
+        <li><strong>Top icons</strong> — quick links to pump.fun, X (Twitter), Dexscreener, plus Copy CA button</li>
+        <li><strong>Chat system</strong> — slide-out panel for real-time player communication</li>
+      </ul>
+      <p>All UI elements use a consistent pixel-art aesthetic with the <code>Press Start 2P</code> typeface and a warm savanna color palette (#f5e6a3, #e6c84a, #c9a227).</p>
+
+      <h2 id="responsive">Responsive Design</h2>
+      <p>The layout adapts to any screen size using CSS custom properties and media queries:</p>
+      <ul>
+        <li><strong>Base (1920×1080)</strong> — optimized default layout</li>
+        <li><strong>Wide screens (>1920px)</strong> — right panel grows 1:1 with extra width, iframe stays fixed</li>
+        <li><strong>Tall screens (>1080px)</strong> — bottom bar grows 1:1 with extra height</li>
+        <li><strong>Tablets (≤900px)</strong> — compressed panel, adjusted iframe scale</li>
+        <li><strong>Mobile (≤600px)</strong> — panel hidden, full-width game, centered icons</li>
+        <li><strong>Portrait mode</strong> — masks stretch dynamically to cover iframe overflow</li>
+      </ul>
+
+      <h2 id="deployment">Deployment &amp; Infrastructure</h2>
+      <ul>
+        <li><strong>Hosting</strong> — Vercel (automatic deploys from GitHub on every push to <code>main</code>)</li>
+        <li><strong>Repository</strong> — GitHub (<code>brianweb3/safari-walk</code>)</li>
+        <li><strong>CDN</strong> — Vercel Edge Network for global low-latency delivery</li>
+        <li><strong>3D Runtime</strong> — Spatial.io engine for real-time 3D rendering and multiplayer</li>
+        <li><strong>CI/CD</strong> — push to <code>main</code> → Vercel build → live in ~30 seconds</li>
+      </ul>
+
+      <h2 id="stack">Tech Stack</h2>
+      <p>
+        <span class="tag">HTML5</span>
+        <span class="tag">CSS3</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">WebGL</span>
+        <span class="tag">Spatial.io</span>
+        <span class="tag">Solana</span>
+        <span class="tag">Meshy AI</span>
+        <span class="tag">Vercel</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">Press Start 2P</span>
+      </p>
+
+      <h2 id="roadmap">Roadmap</h2>
+      <ol>
+        <li><strong>Phase 1</strong> — Core world, 5 animal species, multiplayer, basic UI ✓</li>
+        <li><strong>Phase 2</strong> — Advanced AI behaviors, day/night cycle, weather system</li>
+        <li><strong>Phase 3</strong> — Token-gated areas, NFT animals, breeding mechanics</li>
+        <li><strong>Phase 4</strong> — Player-built structures, land ownership, DAO governance</li>
+        <li><strong>Phase 5</strong> — Mobile app, VR support, cross-chain integration</li>
+      </ol>
+
+    </div>
+  </body>
+</html>
