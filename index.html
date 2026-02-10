@@ -8,6 +8,13 @@
     <!-- Пиксельные шрифты Windows-стиль -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
     <style>
+      /* ===== CSS-переменные для адаптива ===== */
+      :root {
+        --panel-w: 240px;       /* ширина правой панели */
+        --bar-h: 68px;          /* высота нижней полосы  */
+        --icons-gap: 146px;     /* зазор иконок от панели */
+      }
+
       html,
       body {
         margin: 0;
@@ -22,29 +29,27 @@
         position: relative;
         width: 100vw;
         height: 100vh;
-        overflow: hidden; /* обрезаем всё лишнее из Spatial */
+        overflow: hidden;
         background: #000;
       }
 
       iframe {
         border: 0;
-        /* делаем сцену больше и смещаем так,
-           чтобы был виден только главный экран с Savannai */
         width: 160vw;
         height: 150vh;
         position: absolute;
-        top: -15vh; /* задано слайдером */
+        top: -15vh;
         left: -29vw;
         transform: scale(0.89);
         transform-origin: center center;
       }
 
-      /* Правая панель в Windows-стиле с пиксельным шрифтом */
+      /* ===== Правая панель ===== */
       .right-panel {
         position: fixed;
         top: 0;
         right: 0;
-        width: 240px;
+        width: var(--panel-w);
         height: 100vh;
         background: #f5e6a3;
         border-left: 2px solid #c9a227;
@@ -58,7 +63,6 @@
         overflow: hidden;
       }
 
-      /* Заголовок панели — как окно Windows */
       .panel-titlebar {
         background: #e6c84a;
         padding: 8px 12px;
@@ -79,7 +83,6 @@
         font-size: 10px;
       }
 
-      /* Секция */
       .panel-section {
         padding: 14px 16px;
         border-bottom: 2px solid #d4b84a;
@@ -101,7 +104,6 @@
         color: #5c4a00;
       }
 
-      /* Управление — клавиши */
       .controls-grid {
         display: grid;
         grid-template-columns: 50px 1fr;
@@ -126,13 +128,13 @@
         color: #6b5516;
       }
 
-      /* Нижняя панель: кнопка чата + счётчики */
+      /* ===== Нижняя полоса ===== */
       .bottom-bar-mask {
         position: fixed;
         left: 0;
         bottom: 0;
-        right: 240px;
-        height: 68px;
+        right: var(--panel-w);
+        height: var(--bar-h);
         background: #f5e6a3;
         border-top: 2px solid #c9a227;
         z-index: 10;
@@ -166,6 +168,7 @@
         align-items: center;
         gap: 16px;
         flex-wrap: wrap;
+        overflow-x: auto;
       }
 
       .stat-item {
@@ -174,6 +177,7 @@
         gap: 6px;
         font-size: 8px;
         color: #5c4a00;
+        white-space: nowrap;
       }
 
       .stat-item .num {
@@ -185,12 +189,12 @@
         text-align: center;
       }
 
-      /* Чат слева поверх фрейма */
+      /* ===== Чат ===== */
       .chat-panel {
         position: fixed;
         left: 0;
         top: 0;
-        bottom: 68px;
+        bottom: var(--bar-h);
         width: 300px;
         max-width: 85vw;
         background: #faf5e0;
@@ -275,12 +279,15 @@
         color: #888;
       }
 
-      /* Жёлтый блок с иконками по выделенным координатам */
+      /* ===== Блок иконок — растягивается до правой панели,
+             маскируя iframe-кнопки (LIVE, Share, People) ===== */
       .top-icons-block {
         position: fixed;
-        right: 386px; /* 240px панель + 146px зазор */
-        top: 3px;
-        width: 242px;
+        top: 0;
+        /* левый край = старый правый край блока */
+        left: calc(100vw - var(--panel-w) - var(--icons-gap) - 242px);
+        /* правый край = впритык к панели */
+        right: var(--panel-w);
         height: 76px;
         background: #f5e6a3;
         border: 2px solid #c9a227;
@@ -289,7 +296,7 @@
         pointer-events: auto;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         gap: 20px;
         padding: 0 16px;
         box-sizing: border-box;
@@ -317,6 +324,132 @@
         width: 24px;
         height: 24px;
         display: block;
+      }
+
+      .copy-ca-btn {
+        flex-shrink: 0;
+        padding: 6px 14px;
+        font-size: 10px;
+        font-family: 'Press Start 2P', monospace;
+        font-weight: 400;
+        background: #e6c84a;
+        border: 2px solid #c9a227;
+        border-radius: 4px;
+        color: #5c4a00;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.15s;
+      }
+
+      .copy-ca-btn:hover {
+        background: #d4b84a;
+      }
+
+      .copy-ca-btn.copied {
+        background: #a3d977;
+        border-color: #6a9f3a;
+        color: #3a5c1a;
+      }
+
+      /* ==========================================================
+         АДАПТИВ — брейкпоинты
+         ========================================================== */
+
+      /* ----- Средние экраны / небольшие десктопы (≤ 1200px) ----- */
+      @media (max-width: 1200px) {
+        :root {
+          --panel-w: 200px;
+          --icons-gap: 80px;
+        }
+        .panel-section { padding: 10px 12px; }
+        .panel-section h3 { font-size: 8px; }
+        .panel-section p  { font-size: 8px; }
+        .key, .key-label  { font-size: 8px; }
+      }
+
+      /* ----- Планшеты (≤ 900px) ----- */
+      @media (max-width: 900px) {
+        :root {
+          --panel-w: 170px;
+          --icons-gap: 20px;
+          --bar-h: 58px;
+        }
+
+        iframe {
+          width: 200vw;
+          height: 160vh;
+          top: -18vh;
+          left: -48vw;
+          transform: scale(0.78);
+        }
+
+        .top-icons-block {
+          height: 62px;
+          gap: 14px;
+          padding: 0 12px;
+        }
+        .top-icons-block a { width: 38px; height: 38px; }
+        .top-icons-block img,
+        .top-icons-block svg { width: 20px; height: 20px; }
+
+        .bottom-bar-stats { gap: 10px; }
+        .stat-item { font-size: 7px; }
+
+        .chat-panel { width: 260px; }
+      }
+
+      /* ----- Мобильные (≤ 600px) ----- */
+      @media (max-width: 600px) {
+        :root {
+          --panel-w: 0px;   /* правая панель прячется */
+          --bar-h: 54px;
+          --icons-gap: 0px;
+        }
+
+        /* Правая панель — скрыта на мобильных */
+        .right-panel { display: none; }
+
+        /* Iframe заполняет весь экран */
+        iframe {
+          width: 260vw;
+          height: 180vh;
+          top: -22vh;
+          left: -78vw;
+          transform: scale(0.68);
+        }
+
+        /* Иконки — на всю ширину верха, маскируя iframe UI */
+        .top-icons-block {
+          left: 0;
+          right: 0;
+          height: 52px;
+          gap: 12px;
+          padding: 0 14px;
+          justify-content: center;
+        }
+        .top-icons-block a { width: 34px; height: 34px; }
+        .top-icons-block img,
+        .top-icons-block svg { width: 18px; height: 18px; }
+
+        /* Нижняя полоса — на всю ширину */
+        .bottom-bar-mask {
+          right: 0;
+          gap: 10px;
+          padding: 0 8px;
+          overflow-x: auto;
+        }
+        .bottom-bar-chat-btn {
+          padding: 6px 10px;
+          font-size: 11px;
+        }
+        .stat-item { font-size: 7px; gap: 4px; }
+
+        /* Чат — на всю ширину */
+        .chat-panel {
+          width: 100vw;
+          max-width: 100vw;
+          bottom: var(--bar-h);
+        }
       }
     </style>
   </head>
@@ -382,6 +515,7 @@
           <path d="M197.167 75.016c6.436-6.495 12.107-13.684 16.667-20.099l2.316 4.359c7.456 14.917 11.33 29.774 11.33 46.494l-.016 26.532.14 13.754c.54 33.766 7.846 67.929 24.396 99.193l-34.627-27.922-24.501 39.759-25.74-24.231L126 299.604l-41.132-66.748-25.739 24.231-24.501-39.759L0 245.25c16.55-31.264 23.856-65.427 24.397-99.193l.14-13.754-.016-26.532c0-16.721 3.873-31.578 11.331-46.494l2.315-4.359c4.56 6.415 10.23 13.603 16.667 20.099l-2.01 4.175c-3.905 8.109-5.198 17.176-2.156 25.799 1.961 5.554 5.54 10.317 10.154 13.953 4.48 3.531 9.782 5.911 15.333 7.161 3.616.814 7.3 1.149 10.96 1.035-.854 4.841-1.227 9.862-1.251 14.978L53.2 160.984l25.206 14.129a41.926 41.926 0 015.734 3.869c20.781 18.658 33.275 73.855 41.861 100.816 8.587-26.961 21.08-82.158 41.862-100.816a41.865 41.865 0 015.734-3.869l25.206-14.129-32.665-18.866c-.024-5.116-.397-10.137-1.251-14.978 3.66.114 7.344-.221 10.96-1.035 5.551-1.25 10.854-3.63 15.333-7.161 4.613-3.636 8.193-8.399 10.153-13.953 3.043-8.623 1.749-17.689-2.155-25.799l-2.01-4.175z"></path>
         </svg>
       </a>
+      <button type="button" class="copy-ca-btn" id="copy-ca-btn" title="Copy CA">Copy CA</button>
     </div>
 
     <div class="chat-panel" id="chat-panel">
@@ -402,6 +536,20 @@
         document.getElementById('stat-rhinos').textContent = rand15Plus();
         document.getElementById('stat-elephants').textContent = rand15Plus();
         document.getElementById('stat-tortoises').textContent = rand15Plus();
+
+        // Copy CA button
+        var CA_ADDRESS = 'PASTE_YOUR_CA_HERE';
+        var copyBtn = document.getElementById('copy-ca-btn');
+        copyBtn.addEventListener('click', function () {
+          navigator.clipboard.writeText(CA_ADDRESS).then(function () {
+            copyBtn.textContent = 'Copied!';
+            copyBtn.classList.add('copied');
+            setTimeout(function () {
+              copyBtn.textContent = 'Copy CA';
+              copyBtn.classList.remove('copied');
+            }, 1500);
+          });
+        });
 
         var chatToggle = document.getElementById('chat-toggle');
         var chatPanel = document.getElementById('chat-panel');
